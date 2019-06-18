@@ -662,7 +662,8 @@ let PDFViewerApplication = {
       }
     }
 
-    let loadingTask = getDocument({...parameters, httpHeaders: {token: localStorage.getItem('token')}});
+	parameters.httpHeaders = {token: localStorage.getItem('token')};
+    let loadingTask = getDocument(parameters);
     this.pdfLoadingTask = loadingTask;
 
     loadingTask.onPassword = (updateCallback, reason) => {
