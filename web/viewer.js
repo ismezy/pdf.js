@@ -16,6 +16,7 @@
 
 'use strict';
 
+
 if (typeof PDFJSDev !== 'undefined' && PDFJSDev.test('CHROME')) {
   var defaultUrl; // eslint-disable-line no-var
 

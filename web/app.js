@@ -662,7 +662,7 @@ let PDFViewerApplication = {
       }
     }
 
-    let loadingTask = getDocument(parameters);
+    let loadingTask = getDocument({...parameters, httpHeaders: {token: localStorage.getItem('token')}});
     this.pdfLoadingTask = loadingTask;
 
     loadingTask.onPassword = (updateCallback, reason) => {
@@ -1478,7 +1478,7 @@ let PDFViewerApplication = {
 
 let validateFileURL;
 if (typeof PDFJSDev === 'undefined' || PDFJSDev.test('GENERIC')) {
-  const HOSTED_VIEWER_ORIGINS = ['null',
+  const HOSTED_VIEWER_ORIGINS = ['null', 'http://localhost:8888',
     'http://mozilla.github.io', 'https://mozilla.github.io'];
   validateFileURL = function validateFileURL(file) {
     if (file === undefined) {
@@ -1488,7 +1488,7 @@ if (typeof PDFJSDev === 'undefined' || PDFJSDev.test('GENERIC')) {
       let viewerOrigin = new URL(window.location.href).origin || 'null';
       if (HOSTED_VIEWER_ORIGINS.includes(viewerOrigin)) {
         // Hosted or local viewer, allow for any file locations
-        return;
+        return;	
       }
       let { origin, protocol, } = new URL(file, window.location.href);
       // Removing of the following line will not guarantee that the viewer will
